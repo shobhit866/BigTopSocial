@@ -1,26 +1,445 @@
-@import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+
+
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/Gilroy-Regular.woff2') format('woff2'),
+       url('/fonts/Gilroy-Regular.woff') format('woff'),
+       url('/fonts/Gilroy-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/Gilroy-Medium.woff2') format('woff2'),
+       url('/fonts/Gilroy-Medium.woff') format('woff'),
+       url('/fonts/Gilroy-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/Gilroy-Bold.woff2') format('woff2'),
+       url('/fonts/Gilroy-Bold.woff') format('woff'),
+       url('/fonts/Gilroy-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root{
+  --color-logo-blue: #5CC2F2; /* Logo Blue (foundation) */
+  --color-lavender: #B1AFFF; /* Digital Lavender */
+  --color-ink: #0F0F12; /* Ink Black (main background) */
+  --color-acid: #D4FF00; /* Acid Lime (accents) */
+
+  /* translucent gray tones for overlays and buttons */
+  --trans-gray-20: rgba(128,128,128,0.20);
+  --trans-gray-35: rgba(128,128,128,0.35);
+  --trans-gray-50: rgba(128,128,128,0.50);
+
+  --bg: var(--color-ink);
+  --fg: #F7F8FA; /* light foreground on ink */
+  --muted: oklch(0.97 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-2: var(--color-lavender);
+  --card-bg: rgba(255,255,255,0.03);
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+html,body,#root{height:100%;}
+
+/* Make the app shell a column flex container so footer can stick to bottom */
+.app-shell{min-height:100vh;display:flex;flex-direction:column}
+
+/* Apply Gilroy globally to all text elements (including form controls)
+   and fall back to system fonts if not available. */
+body, html, input, button, textarea, select { 
+  font-family: Gilroy, Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--fg);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  width:100%;
+}
+
+
+a{color:var(--accent);text-decoration:none}
+
+
+
+/* Top full-bleed banner (placeholder poster can be added later via inline style or background-image) */
+.top-banner{width:100%;height:100vh;min-height:480px;display:block;position:relative;background-color:var(--bg);background-size:cover;background-position:center;overflow:hidden}
+.top-banner-inner{position:absolute;left:0;right:0;bottom:0;height:160px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:28px;pointer-events:none}
+.banner-cta{pointer-events:auto;background:linear-gradient(90deg,var(--color-logo-blue),var(--color-lavender));color:var(--color-ink);border:none;padding:12px 28px;border-radius:999px;font-weight:800;box-shadow:0 10px 30px rgba(2,6,23,0.28);cursor:pointer;transition:transform .18s ease,box-shadow .18s ease}
+.banner-cta:hover{transform:translateY(-4px);box-shadow:0 18px 48px rgba(2,6,23,0.36)}
+.top-banner.has-poster{background-repeat:no-repeat;background-size:cover;background-position:center}
+
+/* Header */
+.site-header{background:transparent;padding:1rem 0;border-bottom:1px solid rgba(0,0,0,0.06)}
+.site-header .brand{font-weight:700;color:var(--fg);text-decoration:none}
+/* Header video styles */
+.site-header{position:relative;height:100vh;min-height:520px;padding:0;border-bottom:none;color:var(--fg)}
+.site-header::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.55));z-index:0}
+.header-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1}
+.header-overlay{position:relative;z-index:1;width:100%;}
+
+/* Non-home pages: remove default header overlay/gradient and reserve poster space */
+body.page-header-placeholder .site-header{height:auto;min-height:0;padding-bottom:0;background:transparent}
+body.page-header-placeholder .site-header::before{display:none}
+/* When header placeholder is active, remove main top padding so banners can sit flush to top */
+body.page-header-placeholder .site-main{padding-top:0}
+
+/* Navbar pinned to corners (logo left; menu right) */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:6;padding-top:0.5rem;padding-bottom:0.5rem}
+
+/* Menu button pinned to top-right corner (no border) */
+.menu-button{position:absolute;top:1.5rem;right:1.5rem;z-index:8;background:transparent;border:none;box-shadow:none;color:inherit;display:inline-flex;align-items:center;justify-content:center;padding:0;border-radius:9999px;transition:transform .12s ease;width:56px;height:56px}
+/* Keep an accessible visible focus ring only for keyboard focus */
+.menu-button:focus{outline:none}
+.menu-button:focus-visible{box-shadow:0 0 0 4px rgba(92,194,242,0.12);border-radius:8px}
+/* Ensure no border in open state either */
+.navbar.open .menu-button{border:none}
+.menu-button .menu-icon{display:block;width:48px;height:48px;transition:opacity .26s cubic-bezier(.2,.9,.2,1),transform .36s cubic-bezier(.2,.9,.2,1);position:absolute;top:50%;left:50%;transform:translate(-50%, -50%) scale(1);opacity:1}
+
+/* Reusable translucent gray background class */
+.bg-trans-gray{background:var(--trans-gray-20)}
+.bg-trans-gray:hover{background:var(--trans-gray-35)}
+
+/* Modifier for elements that should use translucent gray by default */
+.translucent{background:var(--trans-gray-20);transition:background .22s ease}
+.translucent:hover{background:var(--trans-gray-35)}
+.menu-button .menu-icon.open-icon{opacity:1;transform:translate(-50%, -50%) scale(1) rotate(0deg)}
+.menu-button .menu-icon.close-icon{opacity:0;transform:translate(-50%, -50%) scale(0.85) rotate(-8deg)}
+.navbar.open .menu-icon.open-icon{opacity:0;transform:translate(-50%, -50%) scale(0.85) rotate(8deg)}
+.navbar.open .menu-icon.close-icon{opacity:1;transform:translate(-50%, -50%) scale(1) rotate(0deg)}
+
+/* Slightly smaller on medium screens */
+@media (max-width: 900px){
+  .menu-button .menu-icon{width:44px;height:44px}
+}
+
+/* Smaller on narrow screens */
+@media (max-width: 600px){
+  .menu-button .menu-icon{width:40px;height:40px}
+}
+
+/* Nav menu hidden by default and aligned to the menu button */
+/* Desktop: fixed right-side panel covering 40% width and full height (links centered in a 2x2 grid) */
+.nav-menu{position:fixed;top:0;right:0;left:auto;height:100vh;width:60vw;min-width:420px;max-width:900px;background:rgb(255, 255, 255);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:block;list-style:none;margin:0;padding:3.5rem 4rem;transform:translateX(110%);opacity:0;border-left:1px solid rgba(255,255,255,0.04);box-shadow:-12px 24px 48px rgba(0,0,0,0.45);transition:transform .36s cubic-bezier(.2,.9,.2,1),opacity .28s ease;color:var(--fg);overflow-y:hidden;-webkit-overflow-scrolling:touch;padding-right:calc(4rem + 12px)}
+.nav-menu.show{transform:translateX(0);opacity:1;overflow-y:auto;scrollbar-width:auto;scrollbar-color: rgba(255,255,255,0.24) rgba(0,0,0,0.06)}
+
+.nav-menu .nav-inner{position:relative;z-index:2}
+.nav-menu{box-sizing:border-box}
+.nav-menu a{font-weight:700;color:var(--bg);display:inline-block;padding:0.45rem 0;background:transparent;font-size:1.2rem;line-height:1.6;position:relative}
+.nav-menu.show{transform:translateX(0);opacity:1;overflow-y:auto;scrollbar-width:auto;scrollbar-color: rgba(255,255,255,0.24) rgba(0,0,0,0.06);padding-bottom:4.5rem}
+/* bottom underline that animates on hover/focus */
+.nav-menu a::after{content:"";position:absolute;left:0;right:auto;bottom:6px;height:2px;background:var(--color-logo-blue);transform:scaleX(0);transform-origin:left center;transition:transform .12s ease} 
+.nav-menu a:focus::after,.nav-menu a:hover::after{transform:scaleX(1)}
+.nav-menu li{display:block;margin:0}
+
+/* grid for grouped columns */
+.nav-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10.5rem 7rem;max-width:960px;position:relative;z-index:1}
+.nav-col h2{margin:0 0 1rem 0;font-size:3rem;font-weight:1000;color: rgb(0, 0, 0);}
+.nav-col a{display:block;margin:1.60rem 6;font-size:1.40rem;}
+
+/* Backdrop */
+.menu-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.36);opacity:0;pointer-events:none;transition:opacity .18s ease}
+.menu-backdrop.show{opacity:1;pointer-events:auto} 
+
+/* Mobile: full-width menu panel from top — stacked single-column blocks */
+@media (max-width: 900px){
+  .nav-menu{position:fixed;top:0;left:0;right:0;height:100vh;width:100vw;min-width:auto;padding:2.5rem 1rem;border-radius:0;box-shadow:none;transform:translateY(-6px);opacity:0;background:rgba(255, 255, 255, 0.92);backdrop-filter:blur(10px);color:var(--fg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.75rem;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .nav-menu.show{transform:translateY(0);}
+  .nav-menu a{color:var(--fg);display:inline-flex;justify-content:center;padding:1.1rem 1.25rem;border-radius:8px;font-size:1.15rem;line-height:1.3;position:relative;font-weight:800;width:auto;max-width:340px}
+  .nav-menu a::after{content:"";position:absolute;left:8%;right:8%;bottom:10px;height:2.5px;background:var(--color-logo-blue);transform:scaleX(0);transform-origin:left center;transition:transform .12s ease}
+  .nav-menu a:focus::after,.nav-menu a:hover::after{transform:scaleX(1)}
+}
+
+/* Mobile: pin logo & menu to corners; full-screen menu handled above */
+@media (max-width: 900px){
+  .brand{left:0.125rem;top:0.5rem}
+  .brand-logo{width:110px}
+  .menu-button{right:0.125rem;top:0.5rem}
+  .nav-menu a{color:var(--fg);padding:0.75rem 1rem;border-radius:6px}
+} 
+
+/* Tighter insets for very small screens */
+@media (max-width: 600px){
+  .brand{left:0.0625rem}
+  .brand-logo{width:100px}
+  .menu-button{right:0.0625rem;top:0.5rem}
+}
+
+/* WebKit scrollbar styling for nav menu */
+.nav-menu::-webkit-scrollbar{width:10px;height:10px}
+.nav-menu::-webkit-scrollbar-track{background:transparent}
+.nav-menu::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:9999px}
+.nav-menu::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,0.18)}
+
+/* Ensure a more visible scrollbar when the menu is open */
+.nav-menu.show::-webkit-scrollbar{width:14px}
+.nav-menu.show::-webkit-scrollbar-track{background:transparent}
+.nav-menu.show::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.22);border-radius:9999px;border:3px solid rgba(0,0,0,0.05)}
+.nav-menu.show::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,0.32)}
+
+/* Main */
+.site-main{flex:1;padding:2rem 0}
+
+/* Redesigned footer: layered gradient, rounded media, newsletter, links and vertical socials */
+.site-footer{
+  /* base gradient using requested blue with a lighter stop for depth */
+  background: linear-gradient(135deg, #7fe6ff 0%, #40bbff 60%);
+  color:var(--bg);
+  padding:3.25rem 0 1.75rem;
+  position:relative;
+  overflow:hidden;
+}
+
+/* subtle sheen overlay for a delicate gradient effect */
+.site-footer::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 18%, rgba(255,255,255,0) 40%);
+  mix-blend-mode:overlay;
+}
+.site-footer.footer-new{box-shadow:0 -6px 30px rgba(2,6,23,0.16)}
+.site-footer .footer-inner{display:grid;grid-template-columns:1fr 320px 220px;gap:2rem;align-items:center}
+.site-footer .footer-left{display:flex;gap:1.25rem;align-items:flex-start}
+.site-footer .phone-art{width:220px;height:220px;background:linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02));border-radius:18px;overflow:hidden;box-shadow:0 8px 30px rgba(2,6,23,0.12)}
+.site-footer .phone-art video.footer-reel{width:100%;height:100%;object-fit:cover;display:block}
+.site-footer .footer-lead{font-size:1.25rem;line-height:1.45;max-width:420px;margin:0 0 6px;color:var(--bg);text-align:left;font-weight:700}
+.site-footer .footer-sub{margin:0 0 14px;color:rgba(255,255,255,0.92);opacity:0.95}
+
+.footer-newsletter .newsletter-row{display:flex;gap:0.5rem;align-items:center}
+.footer-newsletter input{flex:1;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);color:var(--bg);outline:none}
+.footer-newsletter input::placeholder{color:rgba(255,255,255,0.6)}
+.btn-primary{background:var(--bg);color:var(--color-logo-blue);border:none;padding:10px 14px;border-radius:10px;font-weight:800;cursor:pointer}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(2,6,23,0.14)}
+
+.footer-mid{display:flex;gap:2.5rem;align-items:flex-start;padding-top:6px}
+.footer-mid .site-links,
+.footer-mid .work-links{display:block;min-width:160px}
+.footer-mid h4{margin:0 0 0.9rem 0;font-size:1.15rem;color:rgba(255,255,255,0.95);letter-spacing:0.2px}
+.footer-mid a{display:block;color:rgba(255,255,255,0.95);text-decoration:none;margin:10px 0;padding:6px 0;font-weight:800;font-size:1.12rem}
+
+/* Make each link look like a block with comfortable spacing on hover */
+.footer-mid a:hover{opacity:0.95;transform:translateX(2px)}
+
+.footer-right{display:flex;flex-direction:column;gap:1rem;align-items:flex-end}
+.social-vertical{display:flex;flex-direction:column;gap:0.75rem}
+.social-vertical .social{display:inline-flex;width:56px;height:56px;align-items:center;justify-content:center;border-radius:12px;background:transparent;color:var(--bg);border:1px solid rgba(255,255,255,0.08)}
+.social-logo{width:26px;height:26px}
+.cta-box{background:rgba(255,255,255,0.06);padding:10px;border-radius:12px;text-align:right}
+.cta-box .mini{margin:0;font-size:0.95rem;color:rgba(255,255,255,0.95)}
+.btn-ghost{display:inline-block;padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.12);color:var(--bg);background:transparent;margin-top:6px}
+
+  .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding:1rem 0 0;font-size:0.9rem;color:rgba(255,255,255,0.82)}
+  .footer-small{display:flex;gap:1rem}
+  .footer-small a{color:rgba(255,255,255,0.75)}
+
+.back-to-top{position: absolute; right: 1.5rem; bottom: 1.5rem; display:flex;align-items:center;justify-content:center;color:var(--bg);text-decoration:none}
+.back-to-top svg{display:block}
+
+/* Responsive */
+@media (max-width: 900px){
+  .site-footer .footer-inner{grid-template-columns:1fr;}
+  .footer-social{flex-direction:row;justify-content:flex-start}
+  .back-to-top{right:1rem}
+}
+
+@media (max-width: 600px){
+  .brand{left:0.5rem;transform:none}
+  .brand-logo{width:110px}
+}
+
+/* Responsive refinements (non-layout changes — scale/paddings/fonts only) */
+@media (max-width: 1200px) {
+  .container { max-width: 900px; }
+  .brand-logo { width: 260px; }
+}
+
+@media (max-width: 900px) {
+  .site-main { padding: 1.25rem 0; }
+  .site-header { min-height: 420px; }
+  .top-banner { min-height: 360px; }
+  .menu-button { width:48px; height:48px }
+  .container { padding: 0 0.75rem }
+}
+
+@media (max-width: 480px) {
+  .site-header { min-height: 320px }
+  .brand-logo { width: 100px }
+  .top-banner-inner { padding-bottom: 18px; height: 120px }
+  .banner-cta { padding: 10px 20px; font-size: 14px }
+  .site-main { padding: 0.75rem 0 }
+}
+
+/* Fluid type for headings where used across the site */
+h1, .contact-title { font-size: clamp(20px, 4.5vw, 56px); }
+/* Ensure images & videos don't overflow */
+img, video { max-width: 100%; height: auto; display: block }
+
+/* Our Team / Person card styles moved to src/app/ourteam/ourteam.css */
 
 @theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(20.495% 0.00644 17.492 / 0.1);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.our-team-h1{
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 900;
+  margin-top: 2rem;
+}
+
+.ourteam-p{
+  text-align: center;
+  font-size: 1.25rem;
+  margin-top: 1rem;
+  color: var(--muted);
+}
+
+.our-team-h1-2{
+  text-align: center;
+  font-size: 4.25rem;
+  font-weight: 500;
+  margin-top: 1rem;
+  color: var(--muted);
+}
+
+.home-start{position:relative;height:200vh;min-height:520px;width:auto;padding:0;border-bottom:none;color:var(--fg)}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+img,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }

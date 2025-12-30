@@ -1,0 +1,39 @@
+.scroll-stack-scroller {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.scroll-stack-inner {
+  position: relative;
+  padding-top: 40vh;
+  padding-bottom: 60vh;
+}
+
+.scroll-stack-card {
+  width: min(92vw, 860px);
+  height: 420px;
+
+  margin-left: auto;
+  margin-right: 3vw; /* controls distance from right edge */
+
+  background: #1a1919;
+  border-radius: 24px;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0 40px 80px rgba(46, 46, 46, 0.241);
+
+  will-change: transform, filter;
+  transform-origin: top center;
+}
+
+.scroll-stack-card:first-child {
+  margin-top: 120px;
+}
+.scroll-stack-end {
+  height: 80vh;
+}

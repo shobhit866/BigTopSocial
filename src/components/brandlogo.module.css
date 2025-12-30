@@ -1,0 +1,4 @@
+.brand{position:absolute;top:1.5rem;left:4.125rem;z-index:7;display:inline-flex;align-items:center;gap:0.5rem;text-decoration:none;padding-left:0.125rem}
+.brand-logo{width:340px;height:auto;display:block}
+.brand-text{display:none;color:var(--fg);font-weight:700}
+.header-inner{position:relative}

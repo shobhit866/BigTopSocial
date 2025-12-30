@@ -1,0 +1,213 @@
+.services-page {
+  min-height: 100vh;
+  background: #0a0a0a;
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+.services-left-column {
+  padding-left: 10vw;
+  max-width: 520px;
+}
+
+.ourpage-h1 {
+  font-size: clamp(42px, 5vw, 72px);
+  font-weight: 900;
+  line-height: 1.05;
+  margin-bottom: 120px;
+  color: #ffffff;
+}
+
+
+/* ===============================
+   SCROLL STACK LAYOUT
+================================ */
+.scroll-stack {
+  height: 200vh;
+}
+
+.scroll-stack-inner {
+  position: relative;
+  padding-top: 40vh;
+}
+
+/* ===============================
+   CARD
+================================ */
+.scroll-stack-card {
+  width: 420px;
+  background: #111;
+  border-radius: 18px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.scroll-stack-card:hover {
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.75);
+}
+
+.scroll-stack-card:first-child {
+  margin-top: 120px;
+}
+
+/* ===============================
+   CARD IMAGE
+================================ */
+.stack-card-image {
+  width: 100%;
+  height: 220px;
+  background: #0d0d0d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stack-card-image img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.scroll-stack-card:hover .stack-card-image img {
+  transform: scale(1.06);
+}
+
+/* ===============================
+   CARD CONTENT
+================================ */
+.stack-card-content {
+  padding: 26px;
+}
+
+.stack-card-content h2 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.stack-card-content p {
+  margin-top: 8px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #aaaaaa;
+}
+
+/* ===============================
+   MODAL OVERLAY
+================================ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+/* ===============================
+   MODAL
+================================ */
+.modal {
+  background: #111;
+  padding: 40px;
+  border-radius: 20px;
+  max-width: 520px;
+  width: 90%;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+  animation: modal-pop 0.28s ease-out;
+}
+
+.modal h1 {
+  margin: 0 0 12px;
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.modal p {
+  color: #aaaaaa;
+  line-height: 1.6;
+}
+
+.modal button {
+  margin-top: 24px;
+  background: #ffffff;
+  color: #000000;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.modal button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.15);
+}
+
+/* ===============================
+   ANIMATION
+================================ */
+@keyframes modal-pop {
+  from {
+    transform: scale(0.92);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 1024px) {
+  .services-left-column {
+    padding-left: 6vw;
+  }
+
+  .scroll-stack-card {
+    width: 360px;
+  }
+}
+
+@media (max-width: 768px) {
+  .services-left-column {
+    padding-left: 4vw;
+  }
+
+  .scroll-stack-card {
+    width: 300px;
+  }
+
+  .stack-card-image {
+    height: 180px;
+  }
+
+  .stack-card-content h2 {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .services-left-column {
+    padding-left: 16px;
+  }
+
+  .scroll-stack-card {
+    width: calc(100vw - 32px);
+  }
+
+  .stack-card-image {
+    height: 160px;
+  }
+}
